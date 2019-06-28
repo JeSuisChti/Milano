@@ -473,6 +473,10 @@ bot.on("message", async(message) => {
         }
         setImmediate(emoji)
     }
+  if(message.content.startsWith(prefix + "reve")) {
+      var arg = message.content.split("")
+      message.channel.send(arg.slice(args[0].split("").length).join("").split("").reverse().join(""))
+    }
 
     if(message.content.startsWith(prefix + "priperm")) {
       const member = message.guild.member(message.mentions.users.first())

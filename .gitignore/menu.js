@@ -159,7 +159,7 @@ bot.on("message", async(message) => {
       .setTitle("Aide pour le bot Milano !")
       .setDescription("Pour obtenir de l'aide pour une commande, utilisez `" + prefix + "help <commande>` (toutes les commandes n'ont pas encore de description)\nSi vous avez des idées d'améliorations pour Milano, tapez la commande `" + prefix + "idee`")
       .addField("➜ **Préfixe** ", prefix, true)
-      .addField("➜ **Commandes modération**", "`mute` ; `unmute`")
+      .addField("➜ **Commandes modération**", "`chmute` ; `chunmute` ; `mute` ; `unmute`")
       .addField("➜ **Commandes utiles**", "`add-emoji` ; `ping` ; `count-members` ; `botinfo` ; `avatar` ; `Milano` ; `remove-emoji`")
       .addField("➜ **Commandes funs**", "`bowling` ; `server` ; `time` ; `emoji` ; `cat` ; `dog` ; `pileouface` ; `succes` ; `profile` ; `avatar` ; `info`")
       .addField("➜ **Commandes owner et son ami**", "`all emoji`")
@@ -296,14 +296,56 @@ bot.on("message", async(message) => {
         message.channel.send(profil)
       }
     }
-    if(message.content === prefix + "server") {
-      var serv_list = bot.guilds.map(r => "**" + r.name + "** | **" + r.memberCount + "** membres\nRejoint le `" + moment(r.joinedAt).format("L") + " à " + moment(r.joinedAt).format("LT") + "`\n")
+    if(message.content.startsWith(prefix + "mute")) {
+      if(!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send("Tu n'es pas autorisé à utiliser cette commande ! Tu as besoin de la permission `Gérer les rôles`.")
+      if(!message.guild.me.hasPermission(["MANAGE_ROLES","ADMINISTRATOR"])) return message.channel.send("Je n'ai pas la permission pour ajouter un rôle")
+      if(!args[1]) return message.channel.send("Veuillez entrer un utilisateur")
+      var muted = message.mentions.members.first()
+      if(!muted) return message.channel.send("Veuillez entrer un utilisateur")
+      if(muted.user.bot === true) return message.channel.send("Tu ne peux pas mute un bot !")
+      var reason = args.slice(2).join(" ")
+      if(!reason) var reason = "Pas de raison précisé"
+
+      let mute_role = message.guild.roles.find(r => r.name === "Muted")
+      if (mute_role) {
+        muted.addRole(mute_role)
+        message.channel.send(":white_check_mark: " + muted + ' a bien été mute ')
+      }
+      else {
+        message.guild.createRole({name: 'Muted', permissions: 0}).then(function (role) {
+            message.guild.channels.filter(channel => channel.type === 'text').forEach(function (channel) {
+                channel.overwritePermissions(mute_role, {
+                    SEND_MESSAGES: false
+                })
+            })
+            message.channel.send(":white_check_mark: " + member + ' a bien été muté')
+            muted.addRole(mute_role.id).then(muted.createDM().then(DM => DM.send("Vous avez été muté par " + message.author.username + " dans le serveur " + message.guild.name + "\nRaison : " + reason)))
+        })
+      }
+      if(!mute_role) return message.channel.send("Veuillez créer un rôle `Muted`")
+    }
+    if(message.content.startsWith(prefix + "unmute")) {
+      var mute_role = message.guild.roles.find(r => r.name === "Muted")
+      
+      var muted = message.guild.member(message.mentions.users.first())
+      if(!muted.roles.get(mute_role.id)) return message.channel.send(muted + " n'a pas été mute !")
+      muted.removeRole(mute_role)
+      message.channel.send(":white_check_mark: " + muted + " a été démute")
+    }
+    if(message.content.startsWith( prefix + "server")) {
+      if(!args[1] | args[1] === 1) {
+        var serv_listBIS = bot.guilds.sort((servA, servB) => servB.memberCount - servA.memberCount).map(s => "**" + s.name + "** | " + s.memberCount + " membres | Rejoint le `" + moment(s.joinedAt).format("L") + " à " + moment(s.joinedAt).format("LT") + "`\n").slice(0, 10)
+        var page = "Page 1 / "
+      } else {
+        var serv_listBIS = bot.guilds.sort((servA, servB) => servB.memberCount - servA.memberCount).map(s => "**" + s.name + "** | " + s.memberCount + " membres | Rejoint le `" + moment(s.joinedAt).format("L") + " à " + moment(s.joinedAt).format("LT") + "`\n").slice(args[1] * 10 - 10, args[1] * 10)
+        var page = "Page " + args[1] + " / "
+      }
       var serv_list_embed = new Discord.RichEmbed()
-      .setTitle("Liste des serveurs (" + serv_list.length + ")")
-      .setDescription(serv_list)
+      .setTitle("Liste des serveurs (" + bot.guilds.map(n => n).length + ")")
+      .setDescription(serv_listBIS)
+      .setFooter(page + Math.ceil(Math.ceil(bot.guilds.map(n => n).length)/10))
       message.channel.send(serv_list_embed)
     }
-
 
     if(message.content.startsWith(prefix + "role")) {
       if(!args[1] | args[1] === 1) {
@@ -625,7 +667,7 @@ bot.on("message", async(message) => {
         }
     }
 
-    if(message.content.startsWith(prefix + "mute")) {
+    if(message.content.startsWith(prefix + "chmute")) {
       message.delete()
       if(message.member.voiceChannel === undefined) return message.reply("tu dois être connecté dans un channel vocal pour utiliser cette commande !")
       
@@ -638,7 +680,7 @@ bot.on("message", async(message) => {
         })
         message.channel.send("Tout les membres du channel `" + message.member.voiceChannel.name + "` ont bien été mute") 
     }
-    if(message.content.startsWith(prefix + "unmute")) {
+    if(message.content.startsWith(prefix + "chunmute")) {
       message.delete()
       if(message.member.voiceChannel === undefined) return message.reply("tu dois être connecté dans un channel vocal pour utiliser cette commande !")
       

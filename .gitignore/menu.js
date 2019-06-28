@@ -1092,7 +1092,7 @@ bot.on("message", async(message) => {
 
     if(message.content.startsWith(prefix + "bow")){
       console.log("Commande exécuté : bowling")
-      var nbquilles = Math.floor(Math.random() * 10)
+      var nbquilles = Math.floor(Math.random() * 12)
       var FBowling = new Discord.RichEmbed()
           .setColor('0xDF013A')
           .setTitle(':bowling:  Dommage  :bowling:')

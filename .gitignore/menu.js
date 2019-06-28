@@ -337,6 +337,7 @@ bot.on("message", async(message) => {
         var serv_listBIS = bot.guilds.sort((servA, servB) => servB.memberCount - servA.memberCount).map(s => "**" + s.name + "** | " + s.memberCount + " membres | Rejoint le `" + moment(s.joinedAt).format("L") + " à " + moment(s.joinedAt).format("LT") + "`\n").slice(0, 10)
         var page = "Page 1 / "
       } else {
+        if(args[1] > Math.ceil(Math.ceil(bot.guilds.map(n => n).length)/10)) return message.channel.send("Veuillez entrer un nombre entre 1 et " + Math.ceil(Math.ceil(bot.guilds.map(n => n).length)/10))
         var serv_listBIS = bot.guilds.sort((servA, servB) => servB.memberCount - servA.memberCount).map(s => "**" + s.name + "** | " + s.memberCount + " membres | Rejoint le `" + moment(s.joinedAt).format("L") + " à " + moment(s.joinedAt).format("LT") + "`\n").slice(args[1] * 10 - 10, args[1] * 10)
         var page = "Page " + args[1] + " / "
       }

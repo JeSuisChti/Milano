@@ -851,15 +851,15 @@ bot.on("message", async(message) => {
         else {
           var MessageRole = message.guild.roles.map(na => na).sort((roleA, roleB) => roleB.calculatedPosition - roleA.calculatedPosition).slice(0, 7).join(" ❱ ") + " ❱ et " + (message.guild.roles.map(na => na.name).length - 15) + " autres rôles..."
         }
-        if(message.guild.emojis.map(na => na.name).length - 15 <= 0) {
+        if(message.guild.emojis.map(na => na.name).length - 10 <= 0) {
           if(message.guild.emojis.map(e => e.name).length === 0) {
             var Message = "Aucun émoji"
           } else {
-            var Message = message.guild.emojis.map(na => bot.emojis.get(na.id).toString()).slice(0, 15).join(" [⏣](https://discordapp.com/) ")
+            var Message = message.guild.emojis.map(na => bot.emojis.get(na.id).toString()).slice(0, 10).join(" [⏣](https://discordapp.com/) ")
           }
         }
         else {
-          var Message = message.guild.emojis.map(na => bot.emojis.get(na.id).toString()).slice(0, 15).join(" [⏣](https://discordapp.com/) ") + " [⏣](https://discordapp.com/) et " + (message.guild.emojis.map(na => na.name).length - 15) + " autres émojis..."
+          var Message = message.guild.emojis.map(na => bot.emojis.get(na.id).toString()).slice(0, 10).join(" [⏣](https://discordapp.com/) ") + " [⏣](https://discordapp.com/) et " + (message.guild.emojis.map(na => na.name).length - 10) + " autres émojis..."
         }
         let position = 0
         if(message.guild.region === "eu-west") position = "Europe de l'ouest";

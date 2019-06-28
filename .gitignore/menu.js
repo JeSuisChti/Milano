@@ -906,26 +906,6 @@ bot.on("message", async(message) => {
           .setFooter(message.guild.name, message.guild.iconURL)
           message.channel.send(serv_embed)
       }
-      if(message.content.startsWith(prefix + "guess")){
-        message.reply("Le nombre a bien été choisie. A toi de jouer !")
-        party_launch = true
-        randnum = Math.floor(Math.random() * (max_num - 0) + 0)
-        console.log("Le nombre choisi est : " + randnum)
-    }
-    if(party_launch && message.content != Number){
-        if(Number.isInteger(parseInt(message.content))){
-            if(message.content > randnum){
-                message.reply("Le nombre est plus petit !")
-            }
-            else if(message.content < randnum){
-                message.reply("Le nombre est plus grand !")
-            }
-            else{
-                message.channel.send(message.author + ' à gagner la partie !')
-                party_launch = false
-            }
-        }
-    }
       if(message.content.startsWith(prefix + "cle")) {
         if(!args[1]){
           message.delete()
@@ -1042,28 +1022,6 @@ bot.on("message", async(message) => {
         .setColor("#1cd800")
         .addField("Clique ci-dessous pour m'inviter sur ton serveur !" , "[Invite moi !](https://discordapp.com/oauth2/authorize?client_id=581124441191481382&scope=bot&permissions=2146958839)")
       message.channel.send(bot_invite)
-    }
-
-    if(message.content.startsWith(prefix + "cardb")) {
-      if(!message.guild) return message.reply("Cette commande n'est pas disponible en message privé !")
-      var bot_info_card = new Canvas(636, 401)
-      .setColor('#FFFFFF')
-      .addBeveledRect(0,0, 636,401, 15)
-
-      .addBeveledImage('./fond.jpg', 5, 5,626,391, 15)
-
-      .setColor('#ff0000')
-      .addBeveledRect(400, 125, 160, 160, 15)
-      .addBeveledImage('./Milano Avatar.jpeg', 405,25, 150, 150, 15)
-      
-      .setColor("#FFFFFF")
-      .setTextFont("30px Bauhaus 93")
-      .addText("• Nom : " + bot.user.username, 30, 50, 500)
-      .addText("• Créé le jeudi 23 mai 2019 à 16:21", 30, 100, 500)
-      .addText("• A rejoint " + message.guild.name + " le \n" + message.guild.joinedAt, 30 , 150, 500)
-
-      .toBuffer();
-        message.channel.send(new Discord.Attachment(bot_info_card))
     }
     if(message.content.startsWith(prefix + "bot")) {
       message.channel.send(bot_info)

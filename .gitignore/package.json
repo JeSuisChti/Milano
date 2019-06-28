@@ -1,0 +1,31 @@
+{
+  "name": "milano",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ToTo",
+  "license": "ISC",
+  "dependencies": {
+    "array-sort": "^1.0.0",
+    "axios": "^0.18.0",
+    "canvas": "^2.5.0",
+    "canvas-constructor": "^3.0.1",
+    "del": "^4.1.1",
+    "discord.js": "^11.5.1",
+    "enmap": "^4.8.7",
+    "fetch": "^1.1.0",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-binaries": "^4.0.0",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.6.0",
+    "opusscript": "0.0.6",
+    "request": "^2.88.0",
+    "superagent": "^5.0.5",
+    "table": "^5.4.1",
+    "youtube-audio-stream": "^0.3.0"
+  },
+  "devDependencies": {},
+  "description": ""
+}

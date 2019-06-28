@@ -15,7 +15,6 @@ const request = require("request")
 bot.login(process.env.TOKEN)
 
 bot.on("ready", guild => {
-  var nbre_serv = bot.guilds.array().length
   console.log(`${bot.user.username} est connecté !`)
   bot.user.setStatus('dnd')
   setTimeout(game1, 5000);
@@ -36,7 +35,7 @@ bot.on("ready", guild => {
 
   function game3(){
 
-    bot.user.setActivity(nbre_serv + " serveurs", {type: "WATCHING"});
+    bot.user.setActivity(bot.guilds.map(g => g).length + " serveurs", {type: "WATCHING"});
 
     setTimeout(game4, 5000);
   };

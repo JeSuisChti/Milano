@@ -161,7 +161,7 @@ bot.on("message", async(message) => {
       .setDescription("Pour obtenir de l'aide pour une commande, utilisez `" + prefix + "help <commande>` (toutes les commandes n'ont pas encore de description)\nSi vous avez des idées d'améliorations pour Milano, tapez la commande `" + prefix + "idee`")
       .addField("➜ **Préfixe** ", prefix, true)
       .addField("➜ **Commandes modération**", "`mute` ; `unmute`")
-      .addField("➜ **Commandes utiles**", "`add-emoji` ; `ping` ; `count-members` ; `cardbot` ; `botinfo` ; `avatar` ; `Milano` ; remove-emoji")
+      .addField("➜ **Commandes utiles**", "`add-emoji` ; `ping` ; `count-members` ; `botinfo` ; `avatar` ; `Milano` ; `remove-emoji`")
       .addField("➜ **Commandes funs**", "`bowling` ; `server` ; `time` ; `emoji` ; `cat` ; `dog` ; `pileouface` ; `succes` ; `profile` ; `avatar` ; `info`")
       .addField("➜ **Commandes owner et son ami**", "`all emoji`")
 
@@ -906,6 +906,26 @@ bot.on("message", async(message) => {
           .setFooter(message.guild.name, message.guild.iconURL)
           message.channel.send(serv_embed)
       }
+      if(message.content.startsWith(prefix + "guess")){
+        message.reply("Le nombre a bien été choisie. A toi de jouer !")
+        party_launch = true
+        randnum = Math.floor(Math.random() * (max_num - 0) + 0)
+        console.log("Le nombre choisi est : " + randnum)
+    }
+    if(party_launch && message.content != Number){
+        if(Number.isInteger(parseInt(message.content))){
+            if(message.content > randnum){
+                message.reply("Le nombre est plus petit !")
+            }
+            else if(message.content < randnum){
+                message.reply("Le nombre est plus grand !")
+            }
+            else{
+                message.channel.send(message.author + ' à gagner la partie !')
+                party_launch = false
+            }
+        }
+    }
       if(message.content.startsWith(prefix + "cle")) {
         if(!args[1]){
           message.delete()
@@ -1008,6 +1028,7 @@ bot.on("message", async(message) => {
             .setThumbnail("https://thumbs.gfycat.com/GiftedTinyHammerheadshark-size_restricted.gif")
             .setFooter(message.author.username, message.author.displayAvatarURL)
             .addField(":busts_in_silhouette: Nombre d'utilisateurs au total :", "⏣ " + bot.users.size + " utilisateurs")
+            .addField(bot.emojis.get("594108441887506442") + " Différents liens :", "⏣ [Invitez Milano sur votre serveur](https://discordapp.com/oauth2/authorize?client_id=581124441191481382&scope=bot&permissions=8)\n⏣ [Rejoignez mon serveur !](https://discord.gg/sjr5HBa)\n⏣ [Notre serveur RP](https://discord.gg/uUs8BJk)")
             message.channel.send(connected_or_not)
       }
 

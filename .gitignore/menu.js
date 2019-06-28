@@ -12,7 +12,7 @@ const table = require("table")
 const request = require("request")
 
 
-bot.login('process.env.TOKEN')
+bot.login(process.env.TOKEN)
 
 bot.on("ready", guild => {
   var nbre_serv = bot.guilds.array().length

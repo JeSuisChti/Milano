@@ -10,6 +10,7 @@ const fetch = require("node-fetch")
 const arraySort = require("array-sort")
 const table = require("table")
 const request = require("request")
+const ascii = require("ascii-art")
 
 
 bot.login(process.env.TOKEN)
@@ -421,6 +422,17 @@ bot.on("message", async(message) => {
           }
         }
       }
+    }
+    if(message.content.startsWith(prefix + "asci")) {
+      ascii.font(args.slice(1).join(" "), "Doom", function(rendered) {
+        rendered = rendered.trimRight()
+
+        if(rendered.length > 900) return message.channel.send(":x: Erreur :x:\nLe message est trop long !")
+
+        message.channel.send(rendered, {
+          code: "md"
+        })
+      })
     }
     if(message.content.startsWith (prefix + "icon")) {
           message.channel.send(message.guild.iconURL)

@@ -876,7 +876,7 @@ bot.on("message", async(message) => {
         if(message.guild.region === "us-west") position = "Etats-Unis de l'Ouest" ;
         if(message.guild.region === "us-east") position = "Etats-Unis de l'Est" ;
         if(message.guild.region === "us-south") position = "Etats-Unis du sud" ;
-        if(message.guild.region === "us-central") position = "Etats-Unis central'" ;
+        if(message.guild.region === "us-central") position = "Etats-Unis central" ;
         message.guild.members.forEach(member => {
           if(member.presence.status === "dnd") dnd_member++;
           if(member.presence.status === "idle") idle_member++;

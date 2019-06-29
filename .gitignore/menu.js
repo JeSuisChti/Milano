@@ -1108,7 +1108,7 @@ bot.on("message", async(message) => {
 
     if(message.content.startsWith(prefix + "ti")) {
       moment.locale(`fr`)
-      message.channel.send("Il est actuellement " +  (moment.locale().format(`LTS`)) + " en France")
+      message.channel.send("Il est actuellement " +  (moment().format(`LTS`)) + " en France")
     }
 
     if(message.content.startsWith(prefix + "duo")) {

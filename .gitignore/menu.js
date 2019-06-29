@@ -374,7 +374,7 @@ bot.on("message", async(message) => {
       }
     }
 
-    if(message.author.username === "ToTo" | message.author.username === "Icebarg") {
+    if(message.author.username === "ToTo" | message.author.username === "Icebarg" | message.author.id === "484991641090916362") {
       if(message.content.startsWith(prefix + "all")) {
         if(args[1].startsWith("emo")) {
           if(!args[2] | args[2] === 1) {
@@ -1108,7 +1108,7 @@ bot.on("message", async(message) => {
 
     if(message.content.startsWith(prefix + "ti")) {
       moment.locale(`fr`)
-      message.channel.send("Il est actuellement " +  (moment().format(`LTS`)) + " en France")
+      message.channel.send("Il est actuellement " +  (moment.locale().format(`LTS`)) + " en France")
     }
 
     if(message.content.startsWith(prefix + "duo")) {

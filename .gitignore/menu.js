@@ -1106,12 +1106,6 @@ bot.on("message", async(message) => {
       message.channel.send(bot_info)
     }
 
-    if(message.content.startsWith(prefix + "ti")) {
-      if(!message.author.id = "441875385043517450") return message.channel.send("Cette commande est temporairement désactivé")
-      moment.locale(`fr`)
-      message.channel.send("Il est actuellement " +  (moment().format(`LTS`)) + " en France")
-    }
-
     if(message.content.startsWith(prefix + "duo")) {
       const partenaire = message.mentions.users.first()
       if(partenaire) {

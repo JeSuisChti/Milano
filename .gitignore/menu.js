@@ -1107,6 +1107,7 @@ bot.on("message", async(message) => {
     }
 
     if(message.content.startsWith(prefix + "ti")) {
+      if(!message.author.id = "441875385043517450") return message.channel.send("Cette commande est temporairement désactivé")
       moment.locale(`fr`)
       message.channel.send("Il est actuellement " +  (moment().format(`LTS`)) + " en France")
     }

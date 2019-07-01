@@ -954,6 +954,7 @@ bot.on("message", async(message) => {
         var serv_embed = new Discord.RichEmbed()
           .setTitle("Info sur le serveur " + message.guild.name)
           .setThumbnail(message.guild.iconURL)
+          .addField("__**Propriétaire :**__", "Nom : " + message.guild.owner.user.username +"\nID : " + message.guild.ownerID)
           .addField("__**Membres : " + message.guild.memberCount +"**__", bot.emojis.get("592780406437183489") + " Bots : " + bot_number + " [❱](https://discordapp.com/) 👥 Humains " + human_number + "\n\n" + bot.emojis.get("593390576615948305") + " En ligne [⏣](https://discordapp.com/) " + online_member + "\n" + bot.emojis.get("593390486123839488") + " Ne pas déranger [⏣](https://discordapp.com/) " + dnd_member + "\n" + bot.emojis.get("593390520039112704") + " Inactif [⏣](https://discordapp.com/) " + idle_member + "\n" + bot.emojis.get("593390555849949196") + " Hors ligne [⏣](https://discordapp.com/) " + offline_member)
           .addField("__**Date de création**__", moment(message.guild.createdAt).format("L") + " à " + moment(message.guild.createdAt).format("LT"))
           .addField("__**Localisation**__", position)

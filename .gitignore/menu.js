@@ -359,6 +359,7 @@ bot.on("message", async(message) => {
               .setFooter(page + Math.ceil(Math.ceil(bot.guilds.map(n => n).length)/10))
               .setColor("#00caf7")
             msg.edit(serv_list_embed)
+            reaction.remove(message.author)
           }
           if(reaction.emoji.name === "⏪" && user.id === message.author.id && reaction.message.id === msg.id) {
             nbrePage = nbrePage - 1
@@ -371,6 +372,7 @@ bot.on("message", async(message) => {
               .setFooter(page + Math.ceil(Math.ceil(bot.guilds.map(n => n).length)/10))
               .setColor("#00caf7")
             msg.edit(serv_list_embed)
+            reaction.remove(message.author)
           }
         })
       })

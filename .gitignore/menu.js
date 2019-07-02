@@ -333,20 +333,47 @@ bot.on("message", async(message) => {
       muted.removeRole(mute_role)
       message.channel.send(":white_check_mark: " + muted + " a été démute")
     }
-    if(message.content.startsWith( prefix + "server")) {
-      if(!args[1] | args[1] === 1) {
-        var serv_listBIS = bot.guilds.sort((servA, servB) => servB.memberCount - servA.memberCount).map(s => "**" + s.name + "** | " + s.memberCount + " membres | Rejoint le `" + moment(s.joinedAt).format("L") + " à " + moment(s.joinedAt).format("LT") + "`\n").slice(0, 10)
-        var page = "Page 1 / "
-      } else {
-        if(args[1] > Math.ceil(Math.ceil(bot.guilds.map(n => n).length)/10)) return message.channel.send("Veuillez entrer un nombre entre 1 et " + Math.ceil(Math.ceil(bot.guilds.map(n => n).length)/10))
-        var serv_listBIS = bot.guilds.sort((servA, servB) => servB.memberCount - servA.memberCount).map(s => "**" + s.name + "** | " + s.memberCount + " membres | Rejoint le `" + moment(s.joinedAt).format("L") + " à " + moment(s.joinedAt).format("LT") + "`\n").slice(args[1] * 10 - 10, args[1] * 10)
-        var page = "Page " + args[1] + " / "
-      }
-      var serv_list_embed = new Discord.RichEmbed()
-      .setTitle("Liste des serveurs (" + bot.guilds.map(n => n).length + ")")
-      .setDescription(serv_listBIS)
-      .setFooter(page + Math.ceil(Math.ceil(bot.guilds.map(n => n).length)/10))
-      message.channel.send(serv_list_embed)
+    if(message.content === prefix + "server") {
+      var nbrePage = 1
+      var serv_list = bot.guilds.sort((servA, servB) => servB.memberCount - servA.memberCount).map(s => "**" + s.name + "** | " + s.memberCount + " membres | Rejoint le `" + moment(s.joinedAt).format("L") + " à " + moment(s.joinedAt).format("LT") + "`\n").slice(0, 10)
+      var page = "Page 1 / "
+      var serv_list_embed1 = new Discord.RichEmbed()
+        .setTitle("Liste des serveurs (" + bot.guilds.map(n => n).length + ")")
+        .setDescription(serv_list)
+        .setFooter(page + Math.ceil(Math.ceil(bot.guilds.map(n => n).length)/10))
+        .setColor("#00caf7")
+      message.channel.send(serv_list_embed1)
+      .then(async msg => {
+        await msg.react("⏪")
+        await msg.react("⏩")
+
+        bot.on("messageReactionAdd", (reaction, user) => {
+          if(reaction.emoji.name === "⏩" && user.id === message.author.id && reaction.message.id === msg.id) {
+            nbrePage = nbrePage + 1
+            if(nbrePage > 3) nbrePage = 3
+            var serv_listBIS = bot.guilds.sort((servA, servB) => servB.memberCount - servA.memberCount).map(s => "**" + s.name + "** | " + s.memberCount + " membres | Rejoint le `" + moment(s.joinedAt).format("L") + " à " + moment(s.joinedAt).format("LT") + "`\n").slice(nbrePage * 10 - 10, nbrePage * 10)
+            var page = "Page " + nbrePage + " / "
+            var serv_list_embed = new Discord.RichEmbed()
+              .setTitle("Liste des serveurs (" + bot.guilds.map(n => n).length + ")")
+              .setDescription(serv_listBIS)
+              .setFooter(page + Math.ceil(Math.ceil(bot.guilds.map(n => n).length)/10))
+              .setColor("#00caf7")
+            msg.edit(serv_list_embed)
+          }
+          if(reaction.emoji.name === "⏪" && user.id === message.author.id && reaction.message.id === msg.id) {
+            nbrePage = nbrePage - 1
+            if(nbrePage < 1) nbrePage = 1
+            var serv_listBIS = bot.guilds.sort((servA, servB) => servB.memberCount - servA.memberCount).map(s => "**" + s.name + "** | " + s.memberCount + " membres | Rejoint le `" + moment(s.joinedAt).format("L") + " à " + moment(s.joinedAt).format("LT") + "`\n").slice(nbrePage * 10 - 10, nbrePage * 10)
+            var page = "Page " + nbrePage + " / "
+            var serv_list_embed = new Discord.RichEmbed()
+              .setTitle("Liste des serveurs (" + bot.guilds.map(n => n).length + ")")
+              .setDescription(serv_listBIS)
+              .setFooter(page + Math.ceil(Math.ceil(bot.guilds.map(n => n).length)/10))
+              .setColor("#00caf7")
+            msg.edit(serv_list_embed)
+          }
+        })
+      })
     }
 
     if(message.content.startsWith(prefix + "role")) {

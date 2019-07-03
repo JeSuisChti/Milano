@@ -1050,7 +1050,7 @@ bot.on("message", async(message) => {
 
       function timer() {
         message.author.createDM().then(function (channel) {
-        return message.channel.send("Hey ! N'oublie pas de `" + args.slice(2).join(" ")+ "` ")
+        return channel.send("Hey ! N'oublie pas de `" + args.slice(2).join(" ")+ "` ")
         })
       }
       function UPTIME(duration) {

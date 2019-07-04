@@ -503,6 +503,7 @@ bot.on("message", async(message) => {
         setImmediate(emoji)
     }
   if(message.content.startsWith(prefix + "reve")) {
+    if(!args[1]) return message.channel.send("Veullez entrer un texte à inverser ! :upside_down:")
       var arg = message.content.split("")
       message.channel.send(arg.slice(args[0].split("").length).join("").split("").reverse().join(""))
     }

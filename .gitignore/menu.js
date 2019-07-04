@@ -845,6 +845,7 @@ bot.on("message", async(message) => {
 
     function find_emoji() {
       message.guild.deleteEmoji(message.guild.emojis.find("name", args[1]).id).catch()
+      message.channel.send("Emoji supprimé avec succès ! :white_check_mark:")
     }
 
     if(message.content.startsWith(prefix + "remove-emo")) {

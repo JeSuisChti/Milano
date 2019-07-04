@@ -162,7 +162,7 @@ bot.on("message", async(message) => {
       .addField("➜ **Préfixe** ", prefix, true)
       .addField("➜ **Commandes modération**", "`chmute` ; `chunmute` ; `mute` ; `unmute`")
       .addField("➜ **Commandes utiles**", "`add-emoji` ; `ping` ; `count-members` ; `botinfo` ; `avatar` ; `Milano` ; `remove-emoji`")
-      .addField("➜ **Commandes funs**", "`bowling` ; `code-binaire` ; `uncode-binaire` ; `server` ; `time` ; `emoji` ; `cat` ; `dog` ; `pileouface` ; `succes` ; `profile` ; `avatar` ; `info`")
+      .addField("➜ **Commandes funs**", "`bowling` ; `code-binaire` ; `roulette` ; `uncode-binaire` ; `server` ; `time` ; `emoji` ; `cat` ; `dog` ; `pileouface` ; `succes` ; `profile` ; `avatar` ; `info`")
       .addField("➜ **Commandes owner et son ami**", "`all emoji`")
 
     var bot_info = new Discord.RichEmbed()

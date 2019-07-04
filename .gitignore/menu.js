@@ -403,6 +403,7 @@ bot.on("message", async(message) => {
       }
     }
   if(message.content.startsWith(prefix + "roul")) {
+    message.delete()
       var inscrit_list = [message.author.username]
       var RouletteRusseEmbed = new Discord.RichEmbed()
         .setTitle("Partie de roulette russe lancée par " + message.author.username)

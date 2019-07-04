@@ -402,6 +402,73 @@ bot.on("message", async(message) => {
         }
       }
     }
+  if(message.content.startsWith(prefix + "roul")) {
+      var inscrit_list = [message.author.username]
+      var RouletteRusseEmbed = new Discord.RichEmbed()
+        .setTitle("Partie de roulette russe lancée par " + message.author.username)
+        .setDescription("⏣ Réagissez avec <:inscription:595975368909914128> pour vous inscrire/désinscrire.\n⏣ " + message.author.username + " réagis avec <:start:595977330632032276> pour lancer la partie.")
+        .addField("Inscrits :", inscrit_list.join(", "))
+      message.channel.send(RouletteRusseEmbed)
+      .then(async msg => {
+        await msg.react("595975368909914128"),
+        await msg.react("595977330632032276")
+
+        bot.on("messageReactionAdd", (reaction, user) => {
+          if(reaction.emoji.id === "595975368909914128" && bot.user.id != user.id && reaction.message.id === msg.id) {
+            if(user.id != message.author.id) {
+              if(inscrit_list.includes(user.username)) {
+                for (var i = 0; i < inscrit_list.length; i++){
+                  if (inscrit_list[i] === user.username) {
+                      var pos = i;
+                    reaction.remove(user)
+                    inscrit_list.splice(pos, 1)
+                    var RouletteRusseEmbedBIS = new Discord.RichEmbed()
+                      .setTitle("Partie de roulette russe lancée par " + message.author.username)
+                      .setDescription("⏣ Réagissez avec <:inscription:595975368909914128> pour vous inscrire/désinscrire.\n⏣ " + message.author.username + " réagis avec <:start:595977330632032276> pour lancer la partie.")
+                      .addField("Inscrits :", inscrit_list.join(" ⏣ "))
+                    msg.edit(RouletteRusseEmbedBIS)
+                  }
+                }
+              } else {
+                inscrit_list.push(user.username)
+                reaction.remove(user)
+                var RouletteRusseEmbedBIS = new Discord.RichEmbed()
+                  .setTitle("Partie de roulette russe lancée par " + message.author.username)
+                  .setDescription("⏣ Réagissez avec <:inscription:595975368909914128> pour vous inscrire/désinscrire.\n⏣ " + message.author.username + " réagis avec <:start:595977330632032276> pour lancer la partie.")
+                  .addField("Inscrits :", inscrit_list.join(" ⏣ "))
+                msg.edit(RouletteRusseEmbedBIS)
+              }
+            } else {
+              reaction.remove(user)
+            }
+          }
+          if(reaction.emoji.id === "595977330632032276" && bot.user.id != user.id && reaction.message.id === msg.id) {
+            if(user.id != message.author.id) return message.channel.send("Tu n'es pas le meneur de cette partie, tu ne peux pas utiliser cet émoji !").then(reaction.remove(user)).then(msg => msg.delete(5000))
+            if(inscrit_list.length <= 1) return message.channel.send("<:error:596287356537929758>Tu ne peux pas lancer la partie tout seul ! 😶").then(reaction.remove(user)).then(msg => msg.delete(5000))
+            var rand = Math.floor(Math.random() * Math.floor(inscrit_list.length))
+            console.log(rand)
+            for(let s = 0; s <= rand; s++) {
+              if(s != rand) {
+                var survive = new Discord.RichEmbed() 
+                  .setDescription(inscrit_list[s] + " a survécu !")
+                  .setColor("#2194ff")
+                message.channel.send(survive)
+                console.log("N° : " + s)
+                console.log("Survivant " + (s + 1) + " : " + inscrit_list[s])
+              } else {
+                var dead = new Discord.RichEmbed() 
+                  .setDescription("Aïe ! Ca fait mal, adieu " + inscrit_list[s])
+                  .setColor("#ff0000")
+                message.channel.send(dead)
+                console.log("N° : " + s)
+                console.log("Mort : " + inscrit_list[s])
+                msg.delete()
+              }
+            }
+          }
+        })
+      })
+    }
 
     if(message.author.username === "ToTo" | message.author.username === "Icebarg" | message.author.id === "484991641090916362") {
       if(message.content.startsWith(prefix + "all")) {

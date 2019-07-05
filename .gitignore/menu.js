@@ -250,7 +250,7 @@ bot.on("message", async(message) => {
           }
         }
         else {
-          var eRole = member.roles.map(na => na).sort((roleA, roleB) => roleB.calculatedPosition - roleA.calculatedPosition).slice(0, 7).join(" ❱ ") + " ❱ et " + (member.roles.map(na => na.name).length - 15) + " autres rôles..."
+          var eRole = member.roles.map(na => na).sort((roleA, roleB) => roleB.calculatedPosition - roleA.calculatedPosition).slice(0, 7).join(" ❱ ") + " ❱ et " + (member.roles.map(na => na.name).length - 7) + " autres rôles..."
         }
         var creation_date = moment(member.user.createdAt).format("L") + " à " + moment(member.user.createdAt).format("LT")
         var arrived_date = moment(member.joinedAt).format("L") + " à " + moment(member.joinedAt).format("LT")
@@ -297,7 +297,7 @@ bot.on("message", async(message) => {
           }
         }
         else {
-          var eRole = message.member.roles.map(na => na).sort((roleA, roleB) => roleB.calculatedPosition - roleA.calculatedPosition).slice(0, 7).join(" ❱ ") + " ❱ et " + (message.member.roles.map(na => na.name).length - 15) + " autres rôles..."
+          var eRole = message.member.roles.map(na => na).sort((roleA, roleB) => roleB.calculatedPosition - roleA.calculatedPosition).slice(0, 7).join(" ❱ ") + " ❱ et " + (message.member.roles.map(na => na.name).length - 7) + " autres rôles..."
         }
         var creation_date = moment(message.author.createdAt).format("L") + " à " + moment(message.author.createdAt).format("LT")
         var arrived_date = moment(message.member.joinedAt).format("L") + " à " + moment(message.member.joinedAt).format("LT")

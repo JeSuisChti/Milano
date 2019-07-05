@@ -242,6 +242,16 @@ bot.on("message", async(message) => {
             var MOT_GAME = "Regarde "
           }
         }
+        if(member.roles.map(na => na.name).length - 7 <= 0) {
+          if(member.roles.map(e => e.name).length === 0) {
+            var eRole = "Aucun rôle"
+          } else {
+            var eRole = member.roles.map(na => na).sort((roleA, roleB) => roleB.calculatedPosition - roleA.calculatedPosition).slice(0, 7).join(" ❱ ")
+          }
+        }
+        else {
+          var eRole = member.roles.map(na => na).sort((roleA, roleB) => roleB.calculatedPosition - roleA.calculatedPosition).slice(0, 7).join(" ❱ ") + " ❱ et " + (member.roles.map(na => na.name).length - 15) + " autres rôles..."
+        }
         var creation_date = moment(member.user.createdAt).format("L") + " à " + moment(member.user.createdAt).format("LT")
         var arrived_date = moment(member.joinedAt).format("L") + " à " + moment(member.joinedAt).format("LT")
         var profil = new Discord.RichEmbed()
@@ -258,6 +268,7 @@ bot.on("message", async(message) => {
           .addField("Rôle le plus élevé :", member.highestRole)
           .addField("Statut : ", user_status)
           .addField("Activité/Jeu : ", MOT_GAME + "`" + user_game + "`")
+          .addField("Rôle(s) :", eRole)
         message.channel.send(profil)
       }
         } else {
@@ -278,9 +289,20 @@ bot.on("message", async(message) => {
         if(user_game === null) {
           user_game = "rien"
         }
+        if(message.member.roles.map(na => na.name).length - 7 <= 0) {
+          if(message.member.roles.map(e => e.name).length === 0) {
+            var eRole = "Aucun rôle"
+          } else {
+            var eRole = message.member.roles.map(na => na).sort((roleA, roleB) => roleB.calculatedPosition - roleA.calculatedPosition).slice(0, 7).join(" ❱ ")
+          }
+        }
+        else {
+          var eRole = message.member.roles.map(na => na).sort((roleA, roleB) => roleB.calculatedPosition - roleA.calculatedPosition).slice(0, 7).join(" ❱ ") + " ❱ et " + (message.member.roles.map(na => na.name).length - 15) + " autres rôles..."
+        }
         var creation_date = moment(message.author.createdAt).format("L") + " à " + moment(message.author.createdAt).format("LT")
         var arrived_date = moment(message.member.joinedAt).format("L") + " à " + moment(message.member.joinedAt).format("LT")
         var profil = new Discord.RichEmbed()
+          .setColor("#12ff00")
           .setTitle("Profil de " + message.author.username)
           .setFooter(message.author.username, message.author.displayAvatarURL)
           .setTimestamp()
@@ -293,6 +315,7 @@ bot.on("message", async(message) => {
           .addField("Rôle le plus élevé :", message.member.highestRole)
           .addField("Statut : ", user_status)
           .addField("Activité/Jeu : ", "Joue à `" + user_game + "`")
+          .addField("Rôle(s) :", eRole)
           //.addField("Nombre de serveurs :", message.author.client.guilds.array().length)
         message.channel.send(profil)
       }

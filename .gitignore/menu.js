@@ -445,7 +445,7 @@ bot.on("message", async(message) => {
           }
           if(reaction.emoji.id === "595977330632032276" && bot.user.id != user.id && reaction.message.id === msg.id) {
             if(user.id != message.author.id) return message.channel.send("Tu n'es pas le meneur de cette partie, tu ne peux pas utiliser cet émoji !").then(reaction.remove(user)).then(msg => msg.delete(5000))
-            if(inscrit_list.length <= 1) return message.channel.send("<:error:596287356537929758>Tu ne peux pas lancer la partie tout seul ! 😶").then(reaction.remove(user)).then(msg => msg.delete(5000))
+            if(inscrit_list.length <= 1) return message.channel.send("<:error:596618799977857025>Tu ne peux pas lancer la partie tout seul ! 😶").then(reaction.remove(user)).then(msg => msg.delete(5000))
             var rand = Math.floor(Math.random() * Math.floor(inscrit_list.length))
             console.log(rand)
             for(let s = 0; s <= rand; s++) {

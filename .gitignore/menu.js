@@ -516,6 +516,7 @@ bot.on("message", async(message) => {
       }
     }
     if(message.content.startsWith(prefix + "asci")) {
+      message.delete()
       if(!args[1]) return message.channel.send(":x: Veuillez entrer un texte ! :x:")
       ascii.font(args.slice(1).join(' '), 'Doom', function(rendered) {
   

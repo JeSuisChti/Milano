@@ -516,15 +516,18 @@ bot.on("message", async(message) => {
       }
     }
     if(message.content.startsWith(prefix + "asci")) {
-      ascii.font(args.slice(1).join(" "), "Doom", function(rendered) {
-        rendered = rendered.trimRight()
-
-        if(rendered.length > 900) return message.channel.send(":x: Erreur :x:\nLe message est trop long !")
-
+      if(!args[1]) return message.channel.send(":x: Veuillez entrer un texte ! :x:")
+      ascii.font(args.slice(1).join(' '), 'Doom', function(rendered) {
+  
+        rendered = rendered.trimRight();
+        
+        if (rendered.lenght > 2000) return message.channel.send("Désoler mais je ne peut pas convertir votre texte :cry: \nCause:Texte trop long !")
+        
         message.channel.send(rendered, {
-          code: "md"
-        })
-      })
+          code: 'md'
+        });
+        
+       });
     }
     if(message.content.startsWith (prefix + "icon")) {
           message.channel.send(message.guild.iconURL)

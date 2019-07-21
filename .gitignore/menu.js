@@ -320,34 +320,6 @@ bot.on("message", async(message) => {
         message.channel.send(profil)
       }
     }
-    if(message.content.startsWith(prefix + "mute")) {
-      if(!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send("Tu n'es pas autorisé à utiliser cette commande ! Tu as besoin de la permission `Gérer les rôles`.")
-      if(!message.guild.me.hasPermission(["MANAGE_ROLES","ADMINISTRATOR"])) return message.channel.send("Je n'ai pas la permission pour ajouter un rôle")
-      if(!args[1]) return message.channel.send("Veuillez entrer un utilisateur")
-      var muted = message.mentions.members.first()
-      if(!muted) return message.channel.send("Veuillez entrer un utilisateur")
-      if(muted.user.bot === true) return message.channel.send("Tu ne peux pas mute un bot !")
-      var reason = args.slice(2).join(" ")
-      if(!reason) var reason = "Pas de raison précisé"
-
-      let mute_role = message.guild.roles.find(r => r.name === "Muted")
-      if (mute_role) {
-        muted.addRole(mute_role)
-        message.channel.send(":white_check_mark: " + muted + ' a bien été mute ')
-      }
-      else {
-        message.guild.createRole({name: 'Muted', permissions: 0}).then(function (role) {
-            message.guild.channels.filter(channel => channel.type === 'text').forEach(function (channel) {
-                channel.overwritePermissions(mute_role, {
-                    SEND_MESSAGES: false
-                })
-            })
-            message.channel.send(":white_check_mark: " + member + ' a bien été muté')
-            muted.addRole(mute_role.id).then(muted.createDM().then(DM => DM.send("Vous avez été muté par " + message.author.username + " dans le serveur " + message.guild.name + "\nRaison : " + reason)))
-        })
-      }
-      if(!mute_role) return message.channel.send("Veuillez créer un rôle `Muted`")
-    }
     if(message.content.startsWith(prefix + "unmute")) {
       var mute_role = message.guild.roles.find(r => r.name === "Muted")
       
